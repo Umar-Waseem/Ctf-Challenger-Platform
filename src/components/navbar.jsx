@@ -26,7 +26,7 @@ export default function Navbar() {
                 ></path>
               </svg>
             </button>
-            <p className="text-3xl font-semibold py-2 px-4">CTF Challenger</p>
+            <p className="text-2xl font-semibold py-2 px-4">CTF Challenger</p>
           </div>
           <div class="flex items-center">
             <div class="flex items-center ms-3">
