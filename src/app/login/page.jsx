@@ -1,6 +1,40 @@
-import Link from "next/link";
+"use client"
 
-export default async function Login() {
+import Link from "next/link";
+import { useState } from "react";
+import AuthError from "../../components/authError";
+
+export default function Login() {
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+
+    const handleSubmit = async (e) => {
+        setError("");
+        e.preventDefault();
+
+        if (!email || !password) {
+            setError("Please fill out all fields");
+            return;
+        }
+
+        const response = await fetch("/api/login", {
+            method: "POST",
+            body: JSON.stringify({ email, password }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (response.ok) {
+            window.location.href = "/";
+        }
+        else {
+            setError("Incorrect email or password");
+        }
+    }
+
     return (
         <section class="bg-gray-50 dark:bg-gray-900">
             <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -18,6 +52,7 @@ export default async function Login() {
                                     Your email
                                 </label>
                                 <input
+                                    onChange={(e) => setEmail(e.target.value)}
                                     type="email"
                                     name="email"
                                     id="email"
@@ -34,6 +69,7 @@ export default async function Login() {
                                     Password
                                 </label>
                                 <input
+                                    onChange={(e) => setPassword(e.target.value)}
                                     type="password"
                                     name="password"
                                     id="password"
@@ -43,17 +79,21 @@ export default async function Login() {
                                 />
                             </div>
 
+                            <AuthError error={error} />
+
                             <button
+                                onClick={handleSubmit}
                                 type="submit"
-                                class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                className="w-full text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                             >
                                 Sign in
                             </button>
+
                             <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                                 Don't have an account yet?{" "}
                                 <Link
                                     href="/signup"
-                                    class="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                                    class="font-medium hover:underline dark:text-white"
                                 >
                                     Sign up
                                 </Link>
