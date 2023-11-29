@@ -9,8 +9,10 @@ const HomePage = () => {
    return (
       <>
          <Navbar />
-         <Sidebar sideBarItems={["Reverse Engineering", "Forensics", "Web Hacking", "OSINT", "Network Security"]} />
-         <HomeArea />
+         <div className="flex flex-row">
+            <Sidebar />
+            <HomeArea />
+         </div>
       </>
    );
 };

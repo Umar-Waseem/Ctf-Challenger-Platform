@@ -1,3 +1,6 @@
+import Link from "next/link";
+
+
 export default function Navbar() {
   return (
     <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -26,7 +29,7 @@ export default function Navbar() {
                 ></path>
               </svg>
             </button>
-            <p className="text-2xl font-semibold py-2 px-4">CTF Challenger</p>
+            <Link href="/" className="text-2xl font-semibold py-2 px-4">CTF Challenger</Link>
           </div>
           <div class="flex items-center">
             <div class="flex items-center ms-3">

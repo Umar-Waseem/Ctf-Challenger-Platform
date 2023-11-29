@@ -1,7 +1,7 @@
 export default function HomeArea() {
   return (
-    <div>
-
+    <div className="text-white">
+      Home Area
     </div>
   );
 }

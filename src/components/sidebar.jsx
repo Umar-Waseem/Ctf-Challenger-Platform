@@ -1,6 +1,9 @@
 import Link from "next/link";
 
-export default function Sidebar({ sideBarItems }) {
+import SidebarItem from "./sidebarItem";
+import MultiSideBarItem from "./multiSideBarItem";
+
+export default function Sidebar() {
     return (
         <aside
             id="logo-sidebar"
@@ -8,32 +11,30 @@ export default function Sidebar({ sideBarItems }) {
             aria-label="Sidebar"
         >
             <div class="h-full px-3 pb-4 pt-4 overflow-y-auto bg-white dark:bg-gray-800">
-                <ul class="space-y-2 font-medium">
-                    {
-                        sideBarItems.map((item) => (
-                            <li className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                <Link
-                                    href="#"
-                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                                >
-                                    <svg
-                                        class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="currentColor"
-                                        viewBox="0 0 22 21"
-                                    >
-                                        <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
-                                        <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
-                                    </svg>
-                                    <span class="ms-3">{item}</span>
-                                </Link>
+                <ul class="space-y-3 font-medium">
+
+                    <SidebarItem title="Home" icon="home" route="/" />
+
+                    <MultiSideBarItem title="Challenges" icon="challenges" children={
+                        [
+                            <li>
+                                <Link href="/challenges/current" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Current Challenges</Link>
+                            </li>,
+                            <li>
+                                <Link href="/challenges/upcoming" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Upcoming Challenges</Link>
+                            </li>,
+                            <li>
+                                <Link href="/challenges/past" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Past Challenges</Link>
                             </li>
-                        )
-                        )
-                    }
+                        ]
+                    } />
+
+                    <SidebarItem title="Signout" icon="signout" route="/signout" />
+
                 </ul>
             </div>
         </aside>
     );
 }
+
+
