@@ -29,7 +29,7 @@ export default function Sidebar() {
                         ]
                     } />
 
-                    <SidebarItem title="Signout" icon="signout" route="/signout" />
+                    <SidebarItem title="Sign Out" icon="signout" route="/signout" />
 
                 </ul>
             </div>

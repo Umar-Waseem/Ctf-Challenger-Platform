@@ -9,10 +9,8 @@ const HomePage = () => {
    return (
       <>
          <Navbar />
-         <div className="flex flex-row">
-            <Sidebar />
-            <HomeArea />
-         </div>
+         <Sidebar />
+         <HomeArea />
       </>
    );
 };
