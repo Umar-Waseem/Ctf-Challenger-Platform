@@ -4,7 +4,12 @@ import Link from "next/link";
 import { useState } from "react";
 import AuthError from "../../components/authError";
 
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+
+
 export default function Login() {
+
+    const supabase = createClientComponentClient()
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -19,19 +24,18 @@ export default function Login() {
             return;
         }
 
-        const response = await fetch("/api/login", {
-            method: "POST",
-            body: JSON.stringify({ email, password }),
-            headers: {
-                "Content-Type": "application/json",
-            },
+        const { user, error } = await supabase.auth.signInWithPassword({
+            email,
+            password,
         });
 
-        if (response.ok) {
-            window.location.href = "/";
+        console.log(user, error)
+
+        if (error) {
+            setError(error.message)
         }
         else {
-            setError("Incorrect email or password");
+            window.location.href = "/"
         }
     }
 

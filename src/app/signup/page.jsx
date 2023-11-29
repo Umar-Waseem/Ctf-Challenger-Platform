@@ -6,7 +6,12 @@ import { useState } from "react";
 import AuthError from "../../components/authError";
 
 
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+
+
 export default function SignUp() {
+
+    const supabase = createClientComponentClient()
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -22,19 +27,19 @@ export default function SignUp() {
             return;
         }
 
-        const response = await fetch("/api/signup", {
-            method: "POST",
-            body: JSON.stringify({ username, email, password }),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+        const { user, error } = await supabase.auth.signUp({
+            email,
+            password,
 
-        if (response.ok) {
-            window.location.href = "/";
+        })
+
+        console.log(user, error)
+
+        if (error) {
+            setError(error.message)
         }
         else {
-            setError("An error occured while registering your account. Please try again later.");
+            window.location.href = "/"
         }
     }
 
