@@ -1,11 +1,7 @@
-// import React from "react";
-// import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar } from "@nextui-org/react";
-// import { AcmeLogo } from "./AcmeLogo.jsx";
-
-
 import Link from "next/link";
+import Image from "next/image";
 
-export default function App() {
+export default function App({ profileImage }) {
   return (
     <div>
 
@@ -18,7 +14,7 @@ export default function App() {
           <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
               <span class="sr-only">Open user menu</span>
-              <img class="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo" />
+              <Image class="w-8 h-8 rounded-full" width={100} height={100} src={profileImage} alt="user photo" />
             </button>
 
             <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
@@ -51,19 +47,10 @@ export default function App() {
           <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
             <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li>
-                <a href="#" class="block py-2 px-3 text-yellow-400 hover:text-yellow-500" aria-current="page">Home</a>
+                <Link href="/" class="block py-2 px-3 text-yellow-400 hover:text-yellow-500" aria-current="page">Home</Link>
               </li>
               <li>
-                <a href="#" class="block py-2 px-3 text-white hover:text-yellow-500">About</a>
-              </li>
-              <li>
-                <a href="#" class="block py-2 px-3 text-white hover:text-yellow-500">Services</a>
-              </li>
-              <li>
-                <a href="#" class="block py-2 px-3 text-white hover:text-yellow-500">Pricing</a>
-              </li>
-              <li>
-                <a href="#" class="block py-2 px-3 text-white hover:text-yellow-500">Contact</a>
+                <Link href="/scoreboard" class="block py-2 px-3 text-yellow-400 hover:text-yellow-500" aria-current="page">Scoreboard</Link>
               </li>
             </ul>
           </div>
