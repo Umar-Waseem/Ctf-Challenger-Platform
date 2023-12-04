@@ -24,8 +24,8 @@ function Users() {
                     setUsers(
                         data.map((item) => ({
                             id: item.id,
-                            user_name: item.username,
-                            user_email: item.email,
+                            user_name: item.user_name,
+                            user_email: item.user_email,
                             ctfs_played: item.ctfs_played,
                         }))
                     );
@@ -55,13 +55,16 @@ function Users() {
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-900 dark:text-gray-400">
                             <tr>
                                 <th scope="col" className="px-6 py-3 border-b border-gray-200">
-                                    Position
+                                    Serial Number
                                 </th>
                                 <th scope="col" className="px-6 py-3 border-b border-gray-200">
                                     Name
                                 </th>
                                 <th scope="col" className="px-6 py-3 border-b border-gray-200">
-                                    Score
+                                    Email
+                                </th>
+                                <th scope="col" className="px-6 py-3 border-b border-gray-200">
+                                    CTFS Played
                                 </th>
                             </tr>
                         </thead>

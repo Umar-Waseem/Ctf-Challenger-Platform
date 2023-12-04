@@ -36,6 +36,16 @@ export default function SignUp() {
             if (error) {
                 setError(error.message);
             } else {
+                // save user to users table
+                const { error } = await supabase.from("users").insert(
+                    { user_name: username, user_email: email, password: password, ctfs_played: 0, total_score: 0 },
+                );
+                console.log("User created successfully");
+
+                console.error("Insert User: (error):\n", error);
+
+                // redirect to home page
+
                 window.location.href = "/";
             }
         } catch (error) {
