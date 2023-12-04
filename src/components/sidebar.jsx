@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { Image } from "@nextui-org/react";
+
 
 import SidebarItem from "./sidebarItem";
 

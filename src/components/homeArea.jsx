@@ -1,38 +1,56 @@
-
-// import EventCard from '../components/eventCard';
 import React from "react";
-import { Card, CardBody, CardFooter, Image, CardHeader, Divider, Link } from "@nextui-org/react";
+import { Card, CardBody, Image, CardHeader } from "@nextui-org/react";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue } from "@nextui-org/react";
-import { users } from "./data";
-const list = [
-  {
-    title: "WEB",
-    img: "/images/fruit-1.jpeg",
-    no_of_qs: "12",
-  },
-  {
-    title: "CRYPTO",
-    img: "/images/fruit-2.jpeg",
-    no_of_qs: "7",
-  },
-  {
-    title: "REVERSE",
-    img: "/images/fruit-3.jpeg",
-    no_of_qs: "8",
-  },
-  {
-    title: "FORENSICS",
-    img: "/images/fruit-4.jpeg",
-    no_of_qs: "30",
-  },
-  // {
-  //   title: "MOBILE",
-  //   img: "/images/fruit-5.jpeg",
-  //   no_of_qs: "10",
-  // },
-];
+import { users } from "../utils/users_data";
+
+
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+
 
 export default function HomeArea() {
+
+  const supabase = createClientComponentClient();
+
+  const [list, setList] = React.useState([]);
+
+  React.useEffect(() => {
+    console.log("DB Request");
+
+    const fetchData = async () => {
+      try {
+        const { data, error } = await supabase.from("ctf").select("*");
+        console.log("Get CTF By Category: (error):\n", error);
+        console.log("Get CTF By Category: (data):\n", data);
+
+        if (data) {
+          setList(
+            data.map((item) => ({
+              id: item.id,
+              title: item.title,
+              description: item.description,
+              score: item.score,
+              difficulty: item.difficulty,
+              flag_format: item.flag_format,
+              challenge_link: item.challenge_link,
+            }))
+          );
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      // Cleanup function
+      // Perform any necessary cleanup here
+      // For example, cancel any pending requests or subscriptions
+      // This function will be called when the component unmounts
+      console.log("Component unmounted");
+    };
+  }, []);
+
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 4;
 
@@ -44,11 +62,13 @@ export default function HomeArea() {
 
     return users.slice(start, end);
   }, [page, users]);
+
+
   return (
     <>
 
       <section>
-        <div className="w-full px-4 sm:px-8 md:px-16 py-2 sm:py-4 md:py-8 bg-[#2D3250]">
+        <div className="w-full h-full px-4 sm:px-8 md:px-16 py-2 sm:py-4 md:py-8 bg-[#2D3250]">
           <div className="grid gap-6 sm:gap-8 md:gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {list.map((item, index) => (
               <Card
@@ -59,34 +79,37 @@ export default function HomeArea() {
                 isPressable
                 onPress={() => console.log("item pressed")}
               >
-                <CardBody className="overflow-visible p-0">
+                {/* <CardBody className="overflow-visible p-0">
+
+                </CardBody> */}
+                <CardHeader className="flex gap-3 bg-[#1e243a]">
                   <Image
-                    shadow="sm"
-                    radius="lg"
-                    width="100%"
-                    alt={item.title}
-                    className="w-full object-cover h-[140px]"
-                    src={item.img}
+                    alt="nextui logo"
+                    height={40}
+                    color="primary"
+                    radius="sm"
+                    src="https://img.icons8.com/ios/50/flag.png"
+                    width={40}
                   />
-                </CardBody>
-                <CardFooter className="text-lg justify-between">
+                  <div className="flex flex-col">
+                    <p className="text-small text-gray-400">{item.difficulty}</p>
+                  </div>
+                </CardHeader>
+                <CardBody className="text-lg justify-between">
                   <div className="flex flex-col w-full">
                     <div className="flex flex-row justify-between">
                       <b className="text-yellow-400">{item.title}</b>
                       {/* <p className="text-default-500">{item.no_of_qs}</p> */}
                       <div class="relative flex items-center justify-center">
                         <div class="absolute h-6 w-6 bg-primary-500 rounded-full"></div>
-                        <p class="text-default-200 text-[12px] z-10">{item.no_of_qs}</p>
+                        <p class="text-default-200 text-[12px] z-10">{item.score}</p>
                       </div>
-
-
                     </div>
-                    <div className="flex flex-row justify-between">
-                      <span className="text-[12px] text-slate-400">Total Score</span>
-                      <span className="text-[12px] text-slate-400">{item.no_of_qs}</span>
-                    </div>
+                    {/* <div className="flex flex-row justify-between"> */}
+                    <span className="text-[12px] text-slate-400">{item.description}</span>
+                    {/* </div> */}
                   </div>
-                </CardFooter>
+                </CardBody>
               </Card>
             ))}
           </div>
@@ -105,12 +128,12 @@ export default function HomeArea() {
               width={40}
             />
             <div className="flex flex-col">
-              <p className="text-md">Notice</p>
-              <p className="text-small text-default-500">122</p>
+              <p className="text-md">Notice Board</p>
+              <p className="text-small text-default-500">1 Unread Notification</p>
             </div>
           </CardHeader>
           <CardBody className="bg-[#1e243a]">
-            <p className="text-white">Welcome to the CTF Challenge! Get ready for an exciting journey into the world of cybersecurity. Sharpen your skills, think outside the box, and may the flags be ever in your favor!</p>
+            <p className="text-white">Welcome to the CTF Challenger!<br /><br />Get ready for an exciting journey into the world of cybersecurity. Sharpen your skills, think outside the box, and may the flags be ever in your favor!</p>
           </CardBody>
         </Card>
 
@@ -125,7 +148,7 @@ export default function HomeArea() {
               width={40}
             />
             <div className="flex">
-              <p className="text-md">Team</p>
+              <p className="text-md">Your Team</p>
             </div>
           </CardHeader>
 
@@ -147,7 +170,7 @@ export default function HomeArea() {
                 </div>
               }
               classNames={{
-        
+
                 wrapper: "min-h-[222px]",
                 table: "text-white",
               }}
