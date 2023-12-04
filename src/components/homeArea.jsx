@@ -3,6 +3,7 @@ import { Card, CardBody, Image, CardHeader } from "@nextui-org/react";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue } from "@nextui-org/react";
 import { users } from "../utils/users_data";
 
+import Link from "next/link";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
@@ -16,9 +17,10 @@ export default function HomeArea() {
   React.useEffect(() => {
     console.log("DB Request");
 
-    const fetchData = async () => {
+    const fetchData = async (category) => {
       try {
-        const { data, error } = await supabase.from("ctf").select("*");
+        const { data, error } = await supabase.from("ctf").select("*")
+        // .eq("category", category);
         console.log("Get CTF By Category: (error):\n", error);
         console.log("Get CTF By Category: (data):\n", data);
 
@@ -71,46 +73,48 @@ export default function HomeArea() {
         <div className="w-full h-full px-4 sm:px-8 md:px-16 py-2 sm:py-4 md:py-8 bg-[#2D3250]">
           <div className="grid gap-6 sm:gap-8 md:gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {list.map((item, index) => (
-              <Card
-                className="bg-[#1e243a] hover:bg-[#12172a] shadow-2xl"
-                radius="sm"
-                shadow="lg"
-                key={index}
-                isPressable
-                onPress={() => console.log("item pressed")}
-              >
-                {/* <CardBody className="overflow-visible p-0">
+              <Link href={`/challenge/${item.id}`} className="w-full">
+                <Card
+                  className="bg-[#1e243a] hover:bg-[#12172a] shadow-2xl"
+                  radius="sm"
+                  shadow="lg"
+                  key={index}
+                  isPressable
+                // onPress={() => console.log("item pressed")}
+                >
+                  {/* <CardBody className="overflow-visible p-0">
 
                 </CardBody> */}
-                <CardHeader className="flex gap-3 bg-[#1e243a]">
-                  <Image
-                    alt="nextui logo"
-                    height={40}
-                    color="primary"
-                    radius="sm"
-                    src="https://img.icons8.com/ios/50/flag.png"
-                    width={40}
-                  />
-                  <div className="flex flex-col">
-                    <p className="text-small text-gray-400">{item.difficulty}</p>
-                  </div>
-                </CardHeader>
-                <CardBody className="text-lg justify-between">
-                  <div className="flex flex-col w-full">
-                    <div className="flex flex-row justify-between">
-                      <b className="text-yellow-400">{item.title}</b>
-                      {/* <p className="text-default-500">{item.no_of_qs}</p> */}
-                      <div class="relative flex items-center justify-center">
-                        <div class="absolute h-6 w-6 bg-primary-500 rounded-full"></div>
-                        <p class="text-default-200 text-[12px] z-10">{item.score}</p>
-                      </div>
+                  <CardHeader className="flex gap-3 bg-[#1e243a]">
+                    <Image
+                      alt="nextui logo"
+                      height={40}
+                      color="primary"
+                      radius="sm"
+                      src="https://img.icons8.com/ios/50/flag.png"
+                      width={40}
+                    />
+                    <div className="flex flex-col">
+                      <p className="text-small text-gray-400">{item.difficulty}</p>
                     </div>
-                    {/* <div className="flex flex-row justify-between"> */}
-                    <span className="text-[12px] text-slate-400">{item.description}</span>
-                    {/* </div> */}
-                  </div>
-                </CardBody>
-              </Card>
+                  </CardHeader>
+                  <CardBody className="text-lg justify-between">
+                    <div className="flex flex-col w-full">
+                      <div className="flex flex-row justify-between">
+                        <b className="text-yellow-400">{item.title}</b>
+                        {/* <p className="text-default-500">{item.no_of_qs}</p> */}
+                        <div class="relative flex items-center justify-center">
+                          <div class="absolute h-6 w-6 bg-primary-500 rounded-full"></div>
+                          <p class="text-default-200 text-[12px] z-10">{item.score}</p>
+                        </div>
+                      </div>
+                      {/* <div className="flex flex-row justify-between"> */}
+                      <span className="text-[12px] text-slate-400">{item.description}</span>
+                      {/* </div> */}
+                    </div>
+                  </CardBody>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>

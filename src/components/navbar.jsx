@@ -52,6 +52,9 @@ export default function App({ profileImage }) {
               <li>
                 <Link href="/scoreboard" class="block py-2 px-3 text-yellow-400 hover:text-yellow-500" aria-current="page">Scoreboard</Link>
               </li>
+              <li>
+                <Link href="/users" class="block py-2 px-3 text-yellow-400 hover:text-yellow-500" aria-current="page">Users</Link>
+              </li>
             </ul>
           </div>
         </div>
