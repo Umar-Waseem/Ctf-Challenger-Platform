@@ -8,7 +8,7 @@ import Link from "next/link";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 
-export default function HomeArea() {
+export default function HomeArea({ selectedCategory }) {
 
   const supabase = createClientComponentClient();
 
@@ -17,10 +17,9 @@ export default function HomeArea() {
   React.useEffect(() => {
     console.log("DB Request");
 
-    const fetchData = async (category) => {
+    const fetchData = async () => {
       try {
-        const { data, error } = await supabase.from("ctf").select("*")
-        // .eq("category", category);
+        const { data, error } = await supabase.from("ctf").select("*").eq("category", selectedCategory);
         console.log("Get CTF By Category: (error):\n", error);
         console.log("Get CTF By Category: (data):\n", data);
 
@@ -51,7 +50,7 @@ export default function HomeArea() {
       // This function will be called when the component unmounts
       console.log("Component unmounted");
     };
-  }, []);
+  }, [selectedCategory]);
 
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 4;

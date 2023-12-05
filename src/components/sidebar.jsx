@@ -2,7 +2,7 @@
 
 import SidebarItem from "./sidebarItem";
 
-export default function Sidebar() {
+export default function Sidebar({ categoryChanger, category }) {
     return (
         <aside
             id="logo-sidebar"
@@ -12,12 +12,12 @@ export default function Sidebar() {
             <div class="px-3 pb-4 overflow-y-auto bg-[#1B2137]">
                 <ul class="h-full font-medium pt-2">
 
-                    <SidebarItem title={"Reverse Engineering"} route={"/reverse-eng"} />
-                    <SidebarItem title={"Web Hacking"} route={"/web-hacking"} />
-                    <SidebarItem title={"Network Security"} route={"/web-hacking"} />
-                    <SidebarItem title={"Cryptography"} route={"/web-hacking"} />
-                    <SidebarItem title={"Digital Forensics"} route={"/web-hacking"} />
-                    <SidebarItem title={"Boot To Root"} route={"/root"} />
+                    <SidebarItem title={"Reverse Engineering"} onPress={categoryChanger} category={category} />
+                    <SidebarItem title={"Web Hacking"} onPress={categoryChanger} category={category} />
+                    <SidebarItem title={"Network Security"} onPress={categoryChanger} category={category} />
+                    <SidebarItem title={"Cryptography"} onPress={categoryChanger} category={category} />
+                    <SidebarItem title={"Digital Forensics"} onPress={categoryChanger} category={category} />
+                    <SidebarItem title={"Boot To Root"} onPress={categoryChanger} category={category} />
                 </ul>
             </div>
         </aside>

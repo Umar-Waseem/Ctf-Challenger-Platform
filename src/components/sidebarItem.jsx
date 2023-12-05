@@ -1,10 +1,9 @@
-import Link from "next/link";
 import Image from "next/image";
 
-export default function SidebarItem({ title, route }) {
+export default function SidebarItem({ title, onPress, category }) {
     return (
-        <li className="flex items-center px-2 py-4 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-yellow-400">
-            <Link href={route} class="flex items-center w-full text-gray-900 ">
+        <li className={`flex items-center px-2 py-4 transition duration-75 rounded-lg group hover:bg-yellow-400 ${title === category ? 'bg-yellow-400' : ''}`}>
+            <button onClick={() => onPress(title)} class="flex items-center w-full text-gray-900 ">
                 <Image
                     alt="nextui logo"
                     height={40}
@@ -13,8 +12,8 @@ export default function SidebarItem({ title, route }) {
                     width={40}
                     className="pr-[8px]"
                 />
-                <p className="text-[16px] text-white hover:text-black hover:font-semibold">{title}</p>
-            </Link>
+                <p className={`text-[16px] ${title === category ? "text-black hover:text-white font-semibold" : "text-white hover:text-black font-semibold"}`}>{title}</p>
+            </button>
         </li>
     );
 }
