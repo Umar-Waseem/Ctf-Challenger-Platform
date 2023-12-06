@@ -65,9 +65,7 @@ export default function HomeArea({ selectedCategory }) {
   }, [page, users]);
 
 
-  const calcHash = (obj) => {
 
-  }
 
 
   return (
@@ -75,7 +73,15 @@ export default function HomeArea({ selectedCategory }) {
 
       <section>
         <div className="w-full h-full px-4 sm:px-8 md:px-16 py-2 sm:py-4 md:py-8 bg-[#2D3250]">
+          {!selectedCategory &&
+            <div>
+              <h1 className="text-4xl text-yellow-400 mb-10">Welcome to CTF Challenger!</h1>
+              <p className="text-white mb-10">Varierty of challenges are available.</p>
+              <p className="text-white mb-10">Please select a category of challenge to solve from the side bar</p>
+            </div>
+          }
           <div className="grid gap-6 sm:gap-8 md:gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+
             {list.map((item, index) => (
               <Link href={`/challenge?id=${item.id}&title=${item.title}&desc=${item.description}&flag=${item.flag_format}`} className="w-full">
                 <Card
