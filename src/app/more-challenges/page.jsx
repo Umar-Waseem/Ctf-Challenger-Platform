@@ -11,6 +11,8 @@ function MoreChallenges() {
     const endTimestamp = Math.floor(endDate.getTime() / 1000);
     const limit = 100;
 
+    const [upcomingChallenges, setUpcomingChallenges] = React.useState([]);
+
     useEffect(() => {
         console.log('Upcoming challenges: component mounted');
 
@@ -46,7 +48,30 @@ function MoreChallenges() {
 
     return (
         <div className='w-full h-full px-4 sm:px-8 md:px-16 py-2 sm:py-4 md:py-8 bg-[#2D3250]'>
-            MoreChallenges
+            \{upcomingChallenges.map((challenge, index) => (
+                <div key={index} className='flex flex-col sm:flex-row justify-between items-center w-full h-full sm:h-20 bg-[#3D4466] rounded-lg px-4 sm:px-8 py-2 sm:py-4 mb-4'>
+                    <div className='flex flex-col justify-center items-start'>
+                        <h2 className='text-[#F2F2F2] text-lg font-bold'>{challenge.title}</h2>
+                        <p className='text-[#F2F2F2] text-sm font-semibold'>{challenge.description}</p>
+                    </div>
+                    <div className='flex flex-col justify-center items-center'>
+                        <p className='text-[#F2F2F2] text-sm font-semibold'>Starts</p>
+                        <p className='text-[#F2F2F2] text-sm font-semibold'>{challenge.start}</p>
+                    </div>
+                    <div className='flex flex-col justify-center items-center'>
+                        <p className='text-[#F2F2F2] text-sm font-semibold'>Ends</p>
+                        <p className='text-[#F2F2F2] text-sm font-semibold'>{challenge.finish}</p>
+                    </div>
+                    <div className='flex flex-col justify-center items-center'>
+                        <p className='text-[#F2F2F2] text-sm font-semibold'>Format</p>
+                        <p className='text-[#F2F2F2] text-sm font-semibold'>{challenge.format}</p>
+                    </div>
+                    <div className='flex flex-col justify-center items-center'>
+                        <p className='text-[#F2F2F2] text-sm font-semibold'>Location</p>
+                        <p className='text-[#F2F2F2] text-sm font-semibold'>{challenge.location}</p>
+                    </div>
+                </div>
+            ))}
         </div>
     )
 }

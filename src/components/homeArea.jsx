@@ -65,6 +65,11 @@ export default function HomeArea({ selectedCategory }) {
   }, [page, users]);
 
 
+  const calcHash = (obj) => {
+
+  }
+
+
   return (
     <>
 
@@ -72,7 +77,7 @@ export default function HomeArea({ selectedCategory }) {
         <div className="w-full h-full px-4 sm:px-8 md:px-16 py-2 sm:py-4 md:py-8 bg-[#2D3250]">
           <div className="grid gap-6 sm:gap-8 md:gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {list.map((item, index) => (
-              <Link href={`/challenge/${item.id}`} className="w-full">
+              <Link href={`/challenge?id=${item.id}&title=${item.title}&desc=${item.description}&flag=${item.flag_format}`} className="w-full">
                 <Card
                   className="bg-[#1e243a] hover:bg-[#12172a] shadow-2xl"
                   radius="sm"
